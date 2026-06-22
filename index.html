@@ -37,7 +37,7 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
-            z-index: 20;
+            z-index: 100; /* Keeps banner content on top */
         }
 
         /* Class Info Badge on Left Side */
@@ -91,8 +91,8 @@
         }
 
         .timer-controls button svg, .btn-gear svg {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             fill: white;
         }
 
@@ -104,13 +104,20 @@
         .btn-start { background-color: #2ecc71; box-shadow: 0 4px 0px #27ae60; }
         .btn-stop { background-color: #e74c3c; box-shadow: 0 4px 0px #c0392b; }
         .btn-reset { background-color: #3498db; box-shadow: 0 4px 0px #2980b9; }
-        .btn-gear { background-color: #7f8c8d; box-shadow: 0 4px 0px #95a5a6; }
+        
+        /* Floating Gear Button on Top Right */
+        .btn-gear { 
+            background-color: #7f8c8d; 
+            box-shadow: 0 4px 0px #95a5a6;
+            position: absolute;
+            right: 30px;
+            top: 25px;
+            z-index: 200; /* Forces gear above all backgrounds */
+        }
 
-        /* Right Side Spacer/Gear Area to balance flexbox layout */
+        /* Right Side Spacer Area to balance flexbox layout */
         .header-right-block {
             width: 180px; 
-            display: flex;
-            justify-content: flex-end;
         }
 
         /* Main Grid Layout with Perfectly Symmetric Center Lines */
@@ -121,6 +128,8 @@
             grid-template-rows: 1fr 1fr 1fr;
             background-color: #000000;
             gap: 4px;
+            position: relative;
+            z-index: 10;
         }
 
         /* Grid Quadrant Panels */
@@ -301,8 +310,9 @@
 
         /* Responsive Fallback for smaller layouts */
         @media (max-width: 768px) {
-            .timer-banner { flex-direction: column; gap: 15px; }
-            .header-right-block { justify-content: center; width: 100%; }
+            .timer-banner { flex-direction: column; gap: 15px; padding-bottom: 70px; }
+            .btn-gear { position: absolute; bottom: 15px; top: auto; right: 50%; transform: translateX(50%); }
+            .header-right-block { display: none; }
             .grid-container { grid-template-columns: 1fr; grid-template-rows: auto; gap: 0; }
             .section-banner { border-left: none; border-right: none; }
         }
@@ -328,11 +338,11 @@
             </div>
         </div>
 
-        <div class="header-right-block">
-            <button class="btn-gear" onclick="openEditModal()" title="Edit Live Settings">
-                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h-3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-            </button>
-        </div>
+        <div class="header-right-block"></div>
+        
+        <button class="btn-gear" onclick="openEditModal()" title="Edit Live Settings">
+            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h-3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </button>
     </div>
 
     <div class="grid-container">
